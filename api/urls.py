@@ -15,6 +15,7 @@ urlpatterns = [
     path("auth/login/", TokenObtainPairView.as_view(), name="auth-login"),
     path("auth/refresh/", TokenRefreshView.as_view(), name="auth-refresh"),
     path("auth/telegram-bind/", views.TelegramBindView.as_view(), name="auth-telegram-bind"),
+    path("auth/me/", views.MeView.as_view(), name="auth-me"),
     path("access/check/", views.AccessCheckView.as_view(), name="access-check"),
     path("reports/expiring/", views.ExpiringReportView.as_view(), name="report-expiring"),
     path("reports/daily/", views.DailyReportView.as_view(), name="report-daily"),

@@ -9,3 +9,4 @@ media/
 .idea/
 .vscode/
 db.sqlite3
+celerybeat-schedule.db
