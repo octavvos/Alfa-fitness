@@ -1,7 +1,40 @@
-# Fitness klub abonementi
+# 🏋️ Fitness klub abonementi
+
+![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-5.0-092E20?logo=django&logoColor=white)
+![DRF](https://img.shields.io/badge/DRF-3.15-red)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15%2B-4169E1?logo=postgresql&logoColor=white)
+![Celery](https://img.shields.io/badge/Celery-5.4-37814A?logo=celery&logoColor=white)
+![aiogram](https://img.shields.io/badge/aiogram-3-26A5E4?logo=telegram&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)
 
 Fitness klub uchun abonement sotish, QR kod bilan kirish nazorati va muzlatish tizimi.
 Backend — Django REST Framework + PostgreSQL, mijozlar bilan muloqot — aiogram 3 asosidagi Telegram bot.
+
+## Mundarija
+
+- [Xususiyatlar](#xususiyatlar)
+- [Texnologiyalar](#texnologiyalar)
+- [Loyiha tuzilishi](#loyiha-tuzilishi)
+- [O'rnatish (lokal, Docker'siz)](#ornatish-lokal-dockersiz)
+- [Docker bilan ishga tushirish](#docker-bilan-ishga-tushirish)
+- [Autentifikatsiya](#autentifikatsiya)
+- [API — endpointlar](#api--endpointlar)
+- [Telegram bot buyruqlari va oqimlari](#telegram-bot-buyruqlari-va-oqimlari)
+- [Kunlik vazifalar (Celery beat)](#kunlik-vazifalar-celery-beat)
+- [Testlar](#testlar)
+- [Ma'lumotlar bazasi tuzilishi haqida qisqacha](#malumotlar-bazasi-tuzilishi-haqida-qisqacha)
+- [Muhim texnik eslatmalar](#muhim-texnik-eslatmalar)
+
+## Xususiyatlar
+
+- 📇 Mijozlar va abonement tariflarini boshqarish (admin panel API orqali)
+- 📱 QR kod orqali zalga kirish nazorati — kunlik va umumiy limitlar bilan
+- ❄️ Abonementni muzlatish — mijoz botdan so'raydi, admin tasdiqlaydi/rad etadi
+- 🤖 Telegram bot (aiogram 3) — mijoz va admin uchun alohida oqimlar, faqat REST API orqali ishlaydi
+- ⏰ Celery beat — muddati tugaganlarni avtomatik yopish, muzlatishdan chiqarish, eslatmalar yuborish
+- 📊 Kunlik/hafta bo'yicha bandlik va sotuv hisobotlari
+- 🐳 Docker Compose bilan bir buyruqda ishga tushirish
 
 ## Texnologiyalar
 
@@ -24,10 +57,21 @@ bot/             aiogram 3 bot (admin va mijoz oqimlari)
 
 ## O'rnatish (lokal, Docker'siz)
 
+> **Talab:** Python 3.11 yoki 3.12 tavsiya etiladi. Juda yangi versiyalarda (masalan 3.14) ba'zi
+> kutubxonalar (`psycopg2-binary`, `Pillow`, `pydantic-core`) uchun tayyor wheel fayllar hali chiqmagan
+> bo'lishi mumkin va manbadan qurish xatolik beradi. Muammo bo'lsa, [uv](https://docs.astral.sh/uv/)
+> orqali kerakli versiyani osongina o'rnatish mumkin: `uv python install 3.12 && uv venv --python 3.12 .venv`.
+
 1. Virtual muhit va kutubxonalar:
    ```bash
    python3 -m venv .venv && source .venv/bin/activate
    pip install -r requirements.txt
+   # yoki tezroq: uv venv .venv && source .venv/bin/activate && uv pip install -r requirements.txt
+   ```
+   QR kod skanerlash (`pyzbar`) ishlashi uchun tizimda `libzbar` kutubxonasi o'rnatilgan bo'lishi kerak:
+   ```bash
+   sudo apt install libzbar0        # Ubuntu 22.04 va eski versiyalar
+   sudo apt install libzbar0t64     # Ubuntu 24.04+ (64-bit time_t nomlanishi)
    ```
 2. `.env` faylini yarating:
    ```bash
